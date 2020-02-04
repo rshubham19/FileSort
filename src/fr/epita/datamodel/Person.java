@@ -1,4 +1,4 @@
-package datamodel;
+package fr.epita.datamodel;
 
 public class Person {
     private String firstName;

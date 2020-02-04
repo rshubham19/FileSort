@@ -1,7 +1,7 @@
 package fr.epita.launcher;
 
 
-import datamodel.Person;
+import fr.epita.datamodel.Person;
 import fr.epita.services.Configuration;
 
 import java.io.*;
@@ -70,13 +70,22 @@ public class Launcher {
     }
 
     public static void writeFile(){
+       if(!new File(SORTED_FILE).exists()){
 
-        for(Person p : list) {
+            try (FileOutputStream output_file = new FileOutputStream(SORTED_FILE, true)) {
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+       }
+
+       for(Person p : list) {
 
             String formatted = p.getFirstName() + NAME_DELIMITER + p.getLastName();
             formatted += COLUMN_DELIMITER + p.getPhoneNumber();
             formatted += COLUMN_DELIMITER + p.getAddress();
-            try (PrintWriter writer = new PrintWriter(new FileOutputStream(SORTED_FILE, true))) {
+            try (PrintWriter writer = new PrintWriter(new FileOutputStream(SORTED_FILE,true))) {
                 writer.println(formatted);
             } catch (FileNotFoundException e) {
                 // TODO custom exception to be written
